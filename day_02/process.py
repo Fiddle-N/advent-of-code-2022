@@ -83,6 +83,7 @@ class RoundPart2:
         else:
             raise Exception('Unexpected outcome')
 
+
 class RockPaperScissors:
 
     def __init__(self, encrypted_strategy_guide: str, right_column_mode='move'):
