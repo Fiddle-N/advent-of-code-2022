@@ -1,5 +1,6 @@
 import enum
 import dataclasses
+import itertools
 
 
 class RPSShapes(enum.Enum):
@@ -38,11 +39,7 @@ class RoundPart1:
     opponent_move: RPSShapes
     your_move: RPSShapes
 
-    SHAPE_RELATIONSHIPS = [
-        (RPSShapes.ROCK, RPSShapes.PAPER),
-        (RPSShapes.PAPER, RPSShapes.SCISSORS),
-        (RPSShapes.SCISSORS, RPSShapes.ROCK),
-    ]
+    SHAPE_RELATIONSHIPS = list(itertools.pairwise(list(RPSShapes) + list(RPSShapes)[:1]))
 
     @property
     def outcome(self) -> RPSScores:
