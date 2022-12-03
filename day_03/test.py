@@ -28,7 +28,7 @@ def test_rucksack_reorganisation_sum_priorities_of_common_items_across_rucksack_
 {rucksacks}
 """
     rr = process.RucksackReorganisation(contents)
-    assert rr.sum_priorities_of_common_items_across_rucksack_compartments == sum_priorities
+    assert rr.sum_priorities_of_common_items_across_rucksack_compartments() == sum_priorities
 
 
 @pytest.mark.parametrize(
@@ -62,4 +62,4 @@ def test_rucksack_reorganisation_sum_priorities_of_common_items_across_elf_group
 {rucksacks}
 """
     rr = process.RucksackReorganisation(contents)
-    assert rr.sum_priorities_of_common_items_across_elf_group_rucksacks == sum_priorities
+    assert rr.sum_priorities_of_common_items_across_elf_group_rucksacks() == sum_priorities

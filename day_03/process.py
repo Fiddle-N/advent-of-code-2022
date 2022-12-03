@@ -55,12 +55,10 @@ class RucksackReorganisation:
             sum_priorities += PRIORITIES.index(common_item)
         return sum_priorities
 
-    @property
     def sum_priorities_of_common_items_across_rucksack_compartments(self):
         rucksack_compartments = [rucksack.compartments for rucksack in self.rucksacks]
         return self._get_sum_priorities(rucksack_compartments)
 
-    @property
     def sum_priorities_of_common_items_across_elf_group_rucksacks(self):
         elf_group_rucksacks = [
             [rucksack.contents for rucksack in rucksack_group]
@@ -73,11 +71,11 @@ def main():
     rr = RucksackReorganisation.read_file()
     print(
         'Sum priorities of common items in compartments within each rucksack:',
-        rr.sum_priorities_of_common_items_across_rucksack_compartments,
+        rr.sum_priorities_of_common_items_across_rucksack_compartments(),
     )
     print(
         'Sum priorities of common items across rucksacks in each elf group:',
-        rr.sum_priorities_of_common_items_across_elf_group_rucksacks,
+        rr.sum_priorities_of_common_items_across_elf_group_rucksacks(),
     )
 
 
