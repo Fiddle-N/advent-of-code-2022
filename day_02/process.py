@@ -102,8 +102,7 @@ class RockPaperScissors:
                 raise Exception('Unexpected param')
             self.strategy_guide.append(round)
 
-    @property
-    def total_score(self):
+    def calculate_total_score(self):
         return sum((round.your_move.value + round.outcome.value) for round in self.strategy_guide)
 
 
@@ -115,9 +114,9 @@ def read_file():
 def main():
     file_txt = read_file()
     rps_right_column_mode_move = RockPaperScissors(file_txt, right_column_mode='move')
-    print('Total score when right column is move:', rps_right_column_mode_move.total_score)
+    print('Total score when right column is move:', rps_right_column_mode_move.calculate_total_score())
     rps_right_column_mode_outcome = RockPaperScissors(file_txt, right_column_mode='outcome')
-    print('Total score when right column is outcome:', rps_right_column_mode_outcome.total_score)
+    print('Total score when right column is outcome:', rps_right_column_mode_outcome.calculate_total_score())
 
 
 if __name__ == '__main__':

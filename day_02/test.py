@@ -27,7 +27,7 @@ def test_total_score_one_rounds_right_column_mode_move(round_input, opponent_mov
 
     assert round.opponent_move == opponent_move
     assert round.your_move == your_move
-    assert rps.total_score == total_score
+    assert rps.calculate_total_score() == total_score
 
 
 def test_total_score_multiple_rounds_right_column_mode_move():
@@ -41,7 +41,7 @@ C Z
         (round.your_move.value + round.outcome.value)
         for round in rps.strategy_guide
     ] == [8, 1, 6]
-    assert rps.total_score == 15
+    assert rps.calculate_total_score() == 15
 
 
 @pytest.mark.parametrize(
@@ -68,7 +68,7 @@ def test_total_score_one_rounds_right_column_mode_outcome(round_input, opponent_
 
     assert round.opponent_move == opponent_move
     assert round.outcome == outcome
-    assert rps.total_score == total_score
+    assert rps.calculate_total_score() == total_score
 
 
 def test_total_score_multiple_rounds_right_column_mode_outcome():
@@ -82,4 +82,4 @@ C Z
         (round.your_move.value + round.outcome.value)
         for round in rps.strategy_guide
     ] == [4, 1, 7]
-    assert rps.total_score == 12
+    assert rps.calculate_total_score() == 12
