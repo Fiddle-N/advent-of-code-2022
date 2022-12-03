@@ -23,7 +23,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw""", 157
         )
     ]
 )
-def test_rucksack_reorganisation_sum_priorities_of_common_items_across_rucksack_compartments(rucksacks, sum_priorities):
+def test_rucksack_reorganisation_sum_priorities_of_common_items_across_rucksack_compartments(rucksacks: str, sum_priorities: int) -> None:
     contents = f"""\
 {rucksacks}
 """
@@ -57,7 +57,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw""", 70
         ),
     ]
 )
-def test_rucksack_reorganisation_sum_priorities_of_common_items_across_elf_group_rucksacks(rucksacks, sum_priorities):
+def test_rucksack_reorganisation_sum_priorities_of_common_items_across_elf_group_rucksacks(rucksacks: str, sum_priorities: int) -> None:
     contents = f"""\
 {rucksacks}
 """
