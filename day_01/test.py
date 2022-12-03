@@ -1,7 +1,7 @@
 from day_01 import process
 
 
-def test_calories_of_elf_carrying_most_calories():
+def test_calories_of_elf_carrying_most_calories() -> None:
     inventory_input = """\
 1000
 2000
@@ -22,7 +22,7 @@ def test_calories_of_elf_carrying_most_calories():
     assert cc.calculate_calories_of_elf_carrying_most_calories() == 24_000
 
 
-def test_calories_of_top_three_elves_carrying_most_calories():
+def test_calories_of_top_three_elves_carrying_most_calories() -> None:
     inventory_input = """\
 1000
 2000
