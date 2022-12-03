@@ -9,18 +9,18 @@ class CalorieCounting:
         self._inventory = sorted([sum(elf_inventory) for elf_inventory in raw_inventory], reverse=True)
 
     @classmethod
-    def read_file(cls):
+    def read_file(cls) -> 'CalorieCounting':
         with open('input.txt') as f:
             return cls(f.read())
 
-    def calculate_calories_of_elf_carrying_most_calories(self):
+    def calculate_calories_of_elf_carrying_most_calories(self) -> int:
         return self._inventory[0]
 
-    def calculate_calories_of_top_three_elves_carrying_most_calories(self):
+    def calculate_calories_of_top_three_elves_carrying_most_calories(self) -> int:
         return sum(self._inventory[:3])
 
 
-def main():
+def main() -> None:
     cc = CalorieCounting.read_file()
     print('Total calories of elf carrying most calories:', cc.calculate_calories_of_elf_carrying_most_calories())
     print(
