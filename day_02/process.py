@@ -1,6 +1,7 @@
 import enum
 import dataclasses
 import itertools
+from typing import Literal
 
 
 class RPSShapes(enum.Enum):
@@ -72,7 +73,11 @@ class RoundPart2:
 
 
 class RockPaperScissors:
-    def __init__(self, encrypted_strategy_guide: str, right_column_mode: str):
+    def __init__(
+        self,
+        encrypted_strategy_guide: str,
+        right_column_mode: Literal["move", "outcome"],
+    ):
         self.strategy_guide = []
         for round_txt in encrypted_strategy_guide.splitlines():
             round_choices = round_txt.split()
