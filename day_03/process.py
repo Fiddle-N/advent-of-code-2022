@@ -15,8 +15,8 @@ class Rucksack:
     def compartments(self) -> list[str]:
         assert len(self.contents) % 2 == 0  # verify even number of items in rucksack
         return [
-            self.contents[:len(self.contents) // 2],
-            self.contents[len(self.contents) // 2:],
+            ''.join(compartment)
+            for compartment in more_itertools.divide(2, self.contents)
         ]
 
 
