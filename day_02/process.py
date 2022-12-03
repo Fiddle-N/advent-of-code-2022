@@ -50,7 +50,7 @@ class RoundPart1:
         elif (self.your_move, self.opponent_move) in self.SHAPE_RELATIONSHIPS:
             return RPSScores.LOSS
         else:
-            return RPSScores.LOSS
+            raise Exception('Unexpected outcome')
 
 
 @dataclasses.dataclass(frozen=True)
@@ -78,7 +78,7 @@ class RoundPart2:
         ):
             return RPSShapes.SCISSORS
         else:
-            raise Exception('Unexpected outcome')
+            raise Exception('Unexpected move')
 
 
 class RockPaperScissors:
@@ -99,7 +99,7 @@ class RockPaperScissors:
                     outcome=OUTCOMES[round_choices[1]]
                 )
             else:
-                raise Exception('unexpected param')
+                raise Exception('Unexpected param')
             self.strategy_guide.append(round)
 
     @property
