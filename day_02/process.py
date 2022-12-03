@@ -1,7 +1,6 @@
 import enum
 import dataclasses
 import itertools
-from typing import Optional
 
 
 class RPSShapes(enum.Enum):
