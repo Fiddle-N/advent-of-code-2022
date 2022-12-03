@@ -72,7 +72,7 @@ class RoundPart2:
 
 
 class RockPaperScissors:
-    def __init__(self, encrypted_strategy_guide: str, right_column_mode: str = "move"):
+    def __init__(self, encrypted_strategy_guide: str, right_column_mode: str):
         self.strategy_guide = []
         for round_txt in encrypted_strategy_guide.splitlines():
             round_choices = round_txt.split()
