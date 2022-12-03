@@ -1,6 +1,7 @@
 import enum
 import dataclasses
 import itertools
+from typing import Optional
 
 
 class RPSShapes(enum.Enum):
@@ -83,11 +84,12 @@ class RoundPart2:
 
 class RockPaperScissors:
 
-    def __init__(self, encrypted_strategy_guide: str, right_column_mode='move'):
-        self.strategy_guide: list[RoundPart1] = []
+    def __init__(self, encrypted_strategy_guide: str, right_column_mode: str = 'move'):
+        self.strategy_guide = []
         for round_txt in encrypted_strategy_guide.splitlines():
             round_choices = round_txt.split()
             assert len(round_choices) == 2
+            round: RoundPart1 | RoundPart2
             if right_column_mode == 'move':
                 round = RoundPart1(
                     opponent_move=OPPONENT_MOVES[round_choices[0]],
@@ -102,16 +104,16 @@ class RockPaperScissors:
                 raise Exception('Unexpected param')
             self.strategy_guide.append(round)
 
-    def calculate_total_score(self):
+    def calculate_total_score(self) -> int:
         return sum((round.your_move.value + round.outcome.value) for round in self.strategy_guide)
 
 
-def read_file():
+def read_file() -> str:
     with open('input.txt') as f:
         return f.read()
 
 
-def main():
+def main() -> None:
     file_txt = read_file()
     rps_right_column_mode_move = RockPaperScissors(file_txt, right_column_mode='move')
     print('Total score when right column is move:', rps_right_column_mode_move.calculate_total_score())

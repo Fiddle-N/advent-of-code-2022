@@ -17,7 +17,7 @@ from day_02 import process
         ('C Z', process.RPSShapes.SCISSORS, process.RPSShapes.SCISSORS, 6),
     ]
 )
-def test_total_score_one_rounds_right_column_mode_move(round_input, opponent_move, your_move, total_score):
+def test_total_score_one_rounds_right_column_mode_move(round_input: str, opponent_move: process.RPSShapes, your_move: process.RPSShapes, total_score: int) -> None:
     encrypted_strategy_guide = f"""\
 {round_input}
 """
@@ -30,7 +30,7 @@ def test_total_score_one_rounds_right_column_mode_move(round_input, opponent_mov
     assert rps.calculate_total_score() == total_score
 
 
-def test_total_score_multiple_rounds_right_column_mode_move():
+def test_total_score_multiple_rounds_right_column_mode_move() -> None:
     encrypted_strategy_guide = """\
 A Y
 B X
@@ -58,7 +58,7 @@ C Z
         ('C Z', process.RPSShapes.SCISSORS, process.RPSScores.WIN, 7),
     ]
 )
-def test_total_score_one_rounds_right_column_mode_outcome(round_input, opponent_move, outcome, total_score):
+def test_total_score_one_rounds_right_column_mode_outcome(round_input: str, opponent_move: process.RPSShapes, outcome: process.RPSScores, total_score: int) -> None:
     encrypted_strategy_guide = f"""\
 {round_input}
 """
@@ -71,7 +71,7 @@ def test_total_score_one_rounds_right_column_mode_outcome(round_input, opponent_
     assert rps.calculate_total_score() == total_score
 
 
-def test_total_score_multiple_rounds_right_column_mode_outcome():
+def test_total_score_multiple_rounds_right_column_mode_outcome() -> None:
     encrypted_strategy_guide = """\
 A Y
 B X
