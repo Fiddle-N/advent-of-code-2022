@@ -13,19 +13,20 @@ class CalorieCounting:
         with open('input.txt') as f:
             return cls(f.read())
 
-    @property
-    def calories_of_elf_carrying_most_calories(self):
+    def calculate_calories_of_elf_carrying_most_calories(self):
         return self._inventory[0]
 
-    @property
-    def calories_of_top_three_elves_carrying_most_calories(self):
+    def calculate_calories_of_top_three_elves_carrying_most_calories(self):
         return sum(self._inventory[:3])
 
 
 def main():
     cc = CalorieCounting.read_file()
-    print('Total calories of elf carrying most calories:', cc.calories_of_elf_carrying_most_calories)
-    print('Total calories of top 3 elves carrying most calories:', cc.calories_of_top_three_elves_carrying_most_calories)
+    print('Total calories of elf carrying most calories:', cc.calculate_calories_of_elf_carrying_most_calories())
+    print(
+        'Total calories of top 3 elves carrying most calories:',
+        cc.calculate_calories_of_top_three_elves_carrying_most_calories()
+    )
 
 
 if __name__ == '__main__':
