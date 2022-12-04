@@ -4,7 +4,7 @@ from day_04 import process
 
 
 @pytest.mark.parametrize(
-    "elf0_range_vals, elf1_range_vals, is_contained_in, contains",
+    "elf1_range_vals, elf2_range_vals, is_contained_in, contains",
     [
         ((2, 4), (6, 8), False, False),
         ((2, 3), (4, 5), False, False),
@@ -15,13 +15,13 @@ from day_04 import process
     ],
 )
 def test_elf_range_contains(
-    elf0_range_vals: tuple[int, int],
     elf1_range_vals: tuple[int, int],
+    elf2_range_vals: tuple[int, int],
     is_contained_in: bool,
     contains: bool,
 ) -> None:
-    elf0_range = process.ElfRange(elf0_range_vals[0], elf0_range_vals[1])
-    elf1_range = process.ElfRange(elf1_range_vals[0], elf1_range_vals[1])
+    elf0_range = process.ElfRange(elf1_range_vals[0], elf1_range_vals[1])
+    elf1_range = process.ElfRange(elf2_range_vals[0], elf2_range_vals[1])
 
     assert elf1_range.contains(elf0_range) == is_contained_in
     assert elf0_range.contains(elf1_range) == contains
@@ -41,7 +41,7 @@ def test_camp_cleanup_ranges_containing_other_ranges() -> None:
 
 
 @pytest.mark.parametrize(
-    "elf0_range_vals, elf1_range_vals, overlaps",
+    "elf1_range_vals, elf2_range_vals, overlaps",
     [
         ((2, 4), (6, 8), False),
         ((2, 3), (4, 5), False),
@@ -52,12 +52,12 @@ def test_camp_cleanup_ranges_containing_other_ranges() -> None:
     ],
 )
 def test_elf_range_overlaps(
-    elf0_range_vals: tuple[int, int],
     elf1_range_vals: tuple[int, int],
+    elf2_range_vals: tuple[int, int],
     overlaps: bool,
 ) -> None:
-    elf0_range = process.ElfRange(elf0_range_vals[0], elf0_range_vals[1])
-    elf1_range = process.ElfRange(elf1_range_vals[0], elf1_range_vals[1])
+    elf0_range = process.ElfRange(elf1_range_vals[0], elf1_range_vals[1])
+    elf1_range = process.ElfRange(elf2_range_vals[0], elf2_range_vals[1])
 
     assert elf0_range.overlaps(elf1_range) == overlaps
 

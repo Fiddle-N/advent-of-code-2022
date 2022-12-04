@@ -20,7 +20,7 @@ class ElfRange(set[int]):
 
 class CampCleanup:
     def __init__(self, section_assignment_input: str) -> None:
-        self.section_pairs = [
+        self._section_pairs = [
             tuple(
                 ElfRange(*[int(boundary) for boundary in section.split("-")])
                 for section in section_assignment_pair.split(",")
@@ -38,7 +38,7 @@ class CampCleanup:
         return range1.contains(range2) or range2.contains(range1)
 
     def _sum_comp(self, comp_fn: Callable[[ElfRange, ElfRange], bool]) -> int:
-        return sum(comp_fn(*pair) for pair in self.section_pairs)
+        return sum(comp_fn(*pair) for pair in self._section_pairs)
 
     def sum_ranges_containing_other_ranges(self) -> int:
         return self._sum_comp(self._two_way_contains)
