@@ -1,6 +1,5 @@
 import dataclasses
 import string
-from typing import List, Any
 
 import more_itertools
 
@@ -35,7 +34,7 @@ class Rucksacks(list[Rucksack]):
 class RucksackReorganisation:
 
     def __init__(self, contents: str) -> None:
-        self.rucksacks = Rucksacks([Rucksack(rucksack_contents) for rucksack_contents in contents.splitlines()])
+        self._rucksacks = Rucksacks([Rucksack(rucksack_contents) for rucksack_contents in contents.splitlines()])
 
     @classmethod
     def read_file(cls) -> "RucksackReorganisation":
@@ -43,7 +42,7 @@ class RucksackReorganisation:
             return cls(f.read())
 
     @staticmethod
-    def _get_sum_priorities(contents_groups: list[list[str]]) -> int:
+    def _sum_priorities(contents_groups: list[list[str]]) -> int:
         sum_priorities = 0
         for contents_group in contents_groups:
             common_items = set.intersection(
@@ -57,15 +56,15 @@ class RucksackReorganisation:
         return sum_priorities
 
     def sum_priorities_of_common_items_across_rucksack_compartments(self) -> int:
-        rucksack_compartments = [rucksack.compartments for rucksack in self.rucksacks]
-        return self._get_sum_priorities(rucksack_compartments)
+        rucksack_compartments = [rucksack.compartments for rucksack in self._rucksacks]
+        return self._sum_priorities(rucksack_compartments)
 
     def sum_priorities_of_common_items_across_elf_group_rucksacks(self) -> int:
         elf_group_rucksacks = [
             [rucksack.contents for rucksack in rucksack_group]
-            for rucksack_group in self.rucksacks.elf_groups
+            for rucksack_group in self._rucksacks.elf_groups
         ]
-        return self._get_sum_priorities(elf_group_rucksacks)
+        return self._sum_priorities(elf_group_rucksacks)
 
 
 def main() -> None:
