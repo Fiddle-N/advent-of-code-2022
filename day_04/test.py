@@ -4,27 +4,27 @@ from day_04 import process
 
 
 @pytest.mark.parametrize(
-    "elf1_range_vals, elf2_range_vals, is_contained_in, contains",
+    "elf1_range_vals, elf2_range_vals, contains, is_contained_in",
     [
         ((2, 4), (6, 8), False, False),
         ((2, 3), (4, 5), False, False),
         ((5, 7), (7, 9), False, False),
-        ((2, 8), (3, 7), False, True),
-        ((6, 6), (4, 6), True, False),
+        ((2, 8), (3, 7), True, False),
+        ((6, 6), (4, 6), False, True),
         ((2, 6), (4, 8), False, False),
     ],
 )
 def test_elf_range_contains(
     elf1_range_vals: tuple[int, int],
     elf2_range_vals: tuple[int, int],
-    is_contained_in: bool,
     contains: bool,
+    is_contained_in: bool,
 ) -> None:
     elf0_range = process.ElfRange(elf1_range_vals[0], elf1_range_vals[1])
     elf1_range = process.ElfRange(elf2_range_vals[0], elf2_range_vals[1])
 
-    assert elf1_range.contains(elf0_range) == is_contained_in
     assert elf0_range.contains(elf1_range) == contains
+    assert elf1_range.contains(elf0_range) == is_contained_in
 
 
 def test_camp_cleanup_ranges_containing_other_ranges() -> None:
