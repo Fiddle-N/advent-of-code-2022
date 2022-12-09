@@ -196,13 +196,13 @@ def test_treetop_tree_house_is_visible(
     directional_assertions: tuple[tuple[process.Direction, bool]],
     overall_assertion: bool,
 ) -> None:
-    map_ = """\
+    tree_height_map = """\
 30373
 25512
 65332
 33549
 35390"""
-    tth = process.TreetopTreeHouse(map_)
+    tth = process.TreetopTreeHouse(tree_height_map)
     tree = tth.trees[coords]
     for direction, directional_assertion in directional_assertions:
         assert tree[direction].is_visible == directional_assertion
@@ -210,13 +210,13 @@ def test_treetop_tree_house_is_visible(
 
 
 def test_treetop_tree_house_sum_visible_trees() -> None:
-    map_ = """\
+    tree_height_map = """\
 30373
 25512
 65332
 33549
 35390"""
-    tth = process.TreetopTreeHouse(map_)
+    tth = process.TreetopTreeHouse(tree_height_map)
     assert tth.sum_visible_trees() == 21
 
 
@@ -250,13 +250,13 @@ def test_treetop_tree_house_scenic_score(
     directional_assertions: tuple[tuple[process.Direction, bool]],
     overall_assertion: bool,
 ) -> None:
-    map_ = """\
+    tree_height_map = """\
 30373
 25512
 65332
 33549
 35390"""
-    tth = process.TreetopTreeHouse(map_)
+    tth = process.TreetopTreeHouse(tree_height_map)
     tree = tth.trees[coords]
     for direction, directional_assertion in directional_assertions:
         assert tree[direction].view_distance == directional_assertion
@@ -264,11 +264,11 @@ def test_treetop_tree_house_scenic_score(
 
 
 def test_treetop_tree_house_max_scenic_score() -> None:
-    map_ = """\
+    tree_height_map = """\
 30373
 25512
 65332
 33549
 35390"""
-    tth = process.TreetopTreeHouse(map_)
+    tth = process.TreetopTreeHouse(tree_height_map)
     assert tth.max_scenic_score() == 8
