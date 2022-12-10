@@ -1,5 +1,5 @@
 import collections
-from collections.abc import Iterator, Iterable, Container
+from collections.abc import Iterator, Container
 import dataclasses
 import enum
 import itertools
