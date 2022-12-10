@@ -56,7 +56,8 @@ class CathodeRayTube:
     def _increment_cycle(self) -> None:
         self.cycle = next(self._cycle_gen)
 
-    def _parse_instr(self, instr_text: str) -> None:
+    @staticmethod
+    def _parse_instr(instr_text: str) -> Instr:
         match instr_text.split():
             case ["noop"]:
                 instr = Instr(cycle_no=1, add_val=0)
@@ -64,7 +65,7 @@ class CathodeRayTube:
                 instr = Instr(cycle_no=2, add_val=int(add_val))
             case _:
                 raise Exception("Unexpected instruction")
-        self.instr = instr
+        return instr
 
     def _execute_pre_cycle(self) -> None:
         if self.instr is None:
@@ -72,7 +73,7 @@ class CathodeRayTube:
                 instr_txt = self.program.popleft()
             except IndexError as exc:
                 raise StopIteration from exc
-            self._parse_instr(instr_txt)
+            self.instr = self._parse_instr(instr_txt)
 
     def _execute_mid_cycle(self) -> None:
         if ((self.cycle.no - 1) % 40) in (
