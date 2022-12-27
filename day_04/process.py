@@ -33,8 +33,7 @@ class CampCleanup:
         with open("input.txt") as f:
             return cls(f.read())
 
-    @staticmethod
-    def _two_way_contains(range1: ElfRange, range2: ElfRange) -> bool:
+    def _two_way_contains(self, range1: ElfRange, range2: ElfRange) -> bool:
         return range1.contains(range2) or range2.contains(range1)
 
     def _sum_comp(self, comp_fn: Callable[[ElfRange, ElfRange], bool]) -> int:
