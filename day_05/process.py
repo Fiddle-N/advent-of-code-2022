@@ -82,7 +82,7 @@ class SupplyStacks:
             yield self._rearrange(rearrangement)
 
 
-def _run_crane(file_txt: str, crane_type: Literal["9000", "9001"]) -> None:
+def run_crane(file_txt: str, crane_type: Literal["9000", "9001"]) -> None:
     ss = SupplyStacks(file_txt, crane_type=crane_type)
     for _ in iter(ss):
         pass
@@ -95,8 +95,8 @@ def _run_crane(file_txt: str, crane_type: Literal["9000", "9001"]) -> None:
 def main() -> None:
     file_txt = read_file()
 
-    _run_crane(file_txt, "9000")
-    _run_crane(file_txt, "9001")
+    run_crane(file_txt, "9000")
+    run_crane(file_txt, "9001")
 
 
 if __name__ == "__main__":

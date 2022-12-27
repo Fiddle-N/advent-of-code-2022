@@ -76,38 +76,45 @@ move 1 from 1 to 2
         ),
     ]
     ss_iter = iter(ss)
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["Z", "N", "D"],
-            ["M", "C"],
-            ["P"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            [],
-            ["M", "C"],
-            ["P", "D", "N", "Z"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["C", "M"],
-            [],
-            ["P", "D", "N", "Z"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["C"],
-            ["M"],
-            ["P", "D", "N", "Z"],
-        ]
-    )
+
+    exp_crate_stacks = [
+        process.CrateStacks(
+            [
+                None,
+                ["Z", "N", "D"],
+                ["M", "C"],
+                ["P"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                [],
+                ["M", "C"],
+                ["P", "D", "N", "Z"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                ["C", "M"],
+                [],
+                ["P", "D", "N", "Z"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                ["C"],
+                ["M"],
+                ["P", "D", "N", "Z"],
+            ]
+        )
+    ]
+
+    for exp_crate_stack in exp_crate_stacks:
+        assert next(ss_iter) == exp_crate_stack
+
     with pytest.raises(StopIteration):
         next(ss_iter)
 
@@ -158,38 +165,45 @@ move 1 from 1 to 2
         ),
     ]
     ss_iter = iter(ss)
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["Z", "N", "D"],
-            ["M", "C"],
-            ["P"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            [],
-            ["M", "C"],
-            ["P", "Z", "N", "D"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["M", "C"],
-            [],
-            ["P", "Z", "N", "D"],
-        ]
-    )
-    assert next(ss_iter) == process.CrateStacks(
-        [
-            None,
-            ["M"],
-            ["C"],
-            ["P", "Z", "N", "D"],
-        ]
-    )
+
+    exp_crate_stacks = [
+        process.CrateStacks(
+            [
+                None,
+                ["Z", "N", "D"],
+                ["M", "C"],
+                ["P"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                [],
+                ["M", "C"],
+                ["P", "Z", "N", "D"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                ["M", "C"],
+                [],
+                ["P", "Z", "N", "D"],
+            ]
+        ),
+        process.CrateStacks(
+            [
+                None,
+                ["M"],
+                ["C"],
+                ["P", "Z", "N", "D"],
+            ]
+        ),
+    ]
+
+    for exp_crate_stack in exp_crate_stacks:
+        assert next(ss_iter) == exp_crate_stack
+
     with pytest.raises(StopIteration):
         next(ss_iter)
 
