@@ -54,15 +54,14 @@ class TreetopTreeHouse:
         with open("input.txt") as f:
             return cls(f.read())
 
-    @staticmethod
-    def _create_tree_map(tree_height_map: str) -> npt.NDArray[np.int32]:
+    def _create_tree_map(self, tree_height_map: str) -> npt.NDArray[np.int32]:
         f = io.StringIO(tree_height_map)
         first_line = f.readline().strip()
         f.seek(0)
         return np.genfromtxt(f, dtype="i4", delimiter=[1] * len(first_line))
 
-    @staticmethod
     def _create_tree_details(
+        self,
         current_tree_height: int,
         direction: Direction,
         directional_trees: npt.NDArray[np.int32],
