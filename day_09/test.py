@@ -182,16 +182,10 @@ s.....""",
 ......
 s.....""",
     ]
-    for grid in exp_grids:
+    for exp_grid, result in zip(exp_grids, rb_iter):
         assert (
-            next(rb_iter).to_grid(
-                x_start,
-                x_end,
-                y_start,
-                y_end,
-                show_explicit_tail=True,
-            )
-            == grid
+            result.to_grid(x_start, x_end, y_start, y_end, show_explicit_tail=True)
+            == exp_grid
         )
 
     assert (
@@ -384,8 +378,8 @@ H123..
 6.....""",
     ]
 
-    for grid in exp_grids:
-        assert next(rb_iter).to_grid(x_start, x_end, y_start, y_end) == grid
+    for exp_grid, result in zip(exp_grids, rb_iter):
+        assert result.to_grid(x_start, x_end, y_start, y_end) == exp_grid
 
     assert len(rb.rope.tail_history) == 1
 
@@ -615,8 +609,8 @@ H.........................
 ..........................""",
     ]
 
-    for grid in exp_grids:
-        assert next(rb_iter).to_grid(x_start, x_end, y_start, y_end) == grid
+    for exp_grid, result in zip(exp_grids, rb_iter):
+        assert result.to_grid(x_start, x_end, y_start, y_end) == exp_grid
 
     assert (
         rb.rope.tail_history_to_grid(x_start, x_end, y_start, y_end)
