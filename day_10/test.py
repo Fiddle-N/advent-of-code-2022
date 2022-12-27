@@ -153,7 +153,7 @@ noop"""
 NOOP = process.Instr(cycle_no=1, add_val=0)
 
 
-def test_crt_small_program() -> None:
+def test_crt_small_program_simulation() -> None:
     program = """\
 noop
 addx 3
@@ -242,10 +242,10 @@ addx -5"""
     for _, exp_state in zip(crt, exp_states):
         assert crt.cycle == exp_state["cycle"]
         assert crt.instr == exp_state["instr"]
-        assert crt.register == exp_state["register"]
+        assert crt.regr == exp_state["register"]
 
 
-def test_crt_larger_program() -> None:
+def test_crt_larger_program_simulation() -> None:
     exp_states: list[dict[str, Any]] = [
         {
             "cycle": process.Cycle(no=1, state=process.CycleState.START),
@@ -632,8 +632,12 @@ def test_crt_larger_program() -> None:
     for _, exp_state in zip(crt, exp_states):
         assert crt.cycle == exp_state["cycle"]
         assert crt.instr == exp_state["instr"]
-        assert crt.register == exp_state["register"]
+        assert crt.regr == exp_state["register"]
         assert crt.screen == exp_state["screen"]
+
+
+def test_crt_larger_program_screen() -> None:
+    crt = process.CathodeRayTube(LONG_PROGRAM)
 
     for _ in crt:
         pass
@@ -647,6 +651,23 @@ def test_crt_larger_program() -> None:
 #####.....#####.....#####.....#####.....
 ######......######......######......####
 #######.......#######.......#######.....
+"""
+    )
+
+    crt_hc = process.CathodeRayTube(LONG_PROGRAM, high_contrast=True)
+
+    for _ in crt_hc:
+        pass
+
+    assert (
+        crt_hc.screen
+        == """\
+██████      ██████      ██████      ██████      ██████      ██████      ██████      ██████      ██████      ██████      
+█████████         █████████         █████████         █████████         █████████         █████████         █████████   
+████████████            ████████████            ████████████            ████████████            ████████████            
+███████████████               ███████████████               ███████████████               ███████████████               
+██████████████████                  ██████████████████                  ██████████████████                  ████████████
+█████████████████████                     █████████████████████                     █████████████████████               
 """
     )
 

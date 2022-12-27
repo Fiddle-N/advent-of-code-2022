@@ -1,8 +1,9 @@
 import collections
-from collections.abc import Iterator, Container
 import dataclasses
 import enum
 import itertools
+from collections.abc import Iterator, Container
+from typing import Type
 
 
 class CycleState(enum.Enum):
@@ -22,15 +23,30 @@ class Instr:
     cycle_no: int
     add_val: int
 
-    def decrement_cycle(self) -> None:
+    def decr_cycle(self) -> None:
         self.cycle_no -= 1
 
 
+class Pixel:
+    ON = "#"
+    OFF = "."
+
+
+class VisiblePixel:
+    ON = "███"
+    OFF = "   "
+
+
 class CathodeRayTube:
-    def __init__(self, program: str, watch_cycles: Container[Cycle] = ()) -> None:
+    def __init__(
+        self,
+        program: str,
+        watch_cycles: Container[Cycle] = (),
+        high_contrast: bool = False,
+    ) -> None:
         self.program = collections.deque(program.splitlines())
 
-        self.register = 1
+        self.regr = 1
 
         self._cycle_gen = self._cycle_gen_fn()
         self.cycle: Cycle
@@ -41,11 +57,14 @@ class CathodeRayTube:
         self.watched_cycles: dict[Cycle, int] = {}
 
         self.screen = ""
+        self.px_cls: Type[Pixel | VisiblePixel] = VisiblePixel if high_contrast else Pixel
 
     @classmethod
-    def read_file(cls, watch_cycles: Container[Cycle] = ()) -> "CathodeRayTube":
+    def read_file(
+        cls, watch_cycles: Container[Cycle] = (), high_contrast: bool = False
+    ) -> "CathodeRayTube":
         with open("input.txt") as f:
-            return cls(f.read(), watch_cycles=watch_cycles)
+            return cls(f.read(), watch_cycles, high_contrast)
 
     @staticmethod
     def _cycle_gen_fn() -> Iterator[Cycle]:
@@ -77,27 +96,29 @@ class CathodeRayTube:
 
     def _execute_mid_cycle(self) -> None:
         if ((self.cycle.no - 1) % 40) in (
-            self.register - 1,
-            self.register,
-            self.register + 1,
+            self.regr - 1,
+            self.regr,
+            self.regr + 1,
         ):
-            self.screen += "#"
+            self.screen += self.px_cls.ON
         else:
-            self.screen += "."
+            self.screen += self.px_cls.OFF
 
         if self.cycle.no % 40 == 0:
             self.screen += "\n"
 
     def _execute_post_cycle(self) -> None:
         assert self.instr
-        self.instr.decrement_cycle()
+        self.instr.decr_cycle()
         if self.instr.cycle_no == 0:
-            self.register += self.instr.add_val
+            self.regr += self.instr.add_val
             self.instr = None
 
-    @property
-    def signal_strength(self) -> int:
-        return self.cycle.no * self.register
+    CYCLE_FNS = {
+        CycleState.START: _execute_pre_cycle,
+        CycleState.DURING: _execute_mid_cycle,
+        CycleState.AFTER: _execute_post_cycle,
+    }
 
     def __iter__(self) -> "CathodeRayTube":
         return self
@@ -105,18 +126,16 @@ class CathodeRayTube:
     def __next__(self) -> int:
         self._increment_cycle()
 
-        cycle_fns = {
-            CycleState.START: self._execute_pre_cycle,
-            CycleState.DURING: self._execute_mid_cycle,
-            CycleState.AFTER: self._execute_post_cycle,
-        }
-
-        cycle_fns[self.cycle.state]()
+        self.CYCLE_FNS[self.cycle.state](self)
 
         if self.cycle in self._watch_cycles:
             self.watched_cycles[self.cycle] = self.signal_strength
 
         return self.signal_strength
+
+    @property
+    def signal_strength(self) -> int:
+        return self.cycle.no * self.regr
 
 
 def main() -> None:
@@ -129,7 +148,7 @@ def main() -> None:
         Cycle(no=220, state=CycleState.DURING),
     ]
 
-    crt = CathodeRayTube.read_file(watch_cycles=key_cycles)
+    crt = CathodeRayTube.read_file(watch_cycles=key_cycles, high_contrast=True)
 
     for _ in crt:
         pass
@@ -139,7 +158,7 @@ def main() -> None:
         sum(crt.watched_cycles.values()),
         end="\n\n",
     )
-    print("Screen:\n")
+    print("Screen:")
     print(crt.screen)
 
 
